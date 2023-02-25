@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Helps render GLSL content.">
+    <title>glx.js</title>
+    <script src="example.js" type="module"></script>
+    <style>
+      html {
+        font: medium/normal sans-serif;
+        height: 100%;
+      }
+      body {
+        display: grid;
+        margin: 0;
+        min-height: 100%;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      p {
+        text-align: center;
+      }
+      figcaption {
+        font-size: small;
+      }
+      figure {
+        margin: auto;
+      }
+      canvas,
+      img {
+        vertical-align: middle;
+      }
+    </style>
+    <noscript>
+      <style>
+        canvas {
+          background: url(screenshot.png) center/cover no-repeat;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <figure>
+      <canvas id="canvas" height="360" width="360">
+        <img src="screenshot.png" alt="Rainbow colored rectangle on a white background" height="360" width="360">
+      </canvas>
+      <figcaption>
+        <p><strong><a href="https://github.com/thewhodidthis/glx">glx.js</a></strong> Helps render GLSL content</p>
+      </figcaption>
+    </figure>
+  </body>
+</html>
