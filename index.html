@@ -25,24 +25,27 @@
       p {
         text-align: center;
       }
-      figcaption {
-        font-size: small;
+      canvas {
+        background: white center/cover no-repeat;
+        display: block;
       }
-      figure {
-        margin: auto;
+      img {
+        height: auto;
+        vertical-align: middle;
       }
       canvas,
       img {
-        vertical-align: middle;
+        object-fit: cover;
+        max-width: 100%;
+      }
+      figcaption {
+        margin: 0 2.25rem 0 0.75rem;
+      }
+      figure {
+        font-size: small;
+        margin: auto;
       }
     </style>
-    <noscript>
-      <style>
-        canvas {
-          background: url(screenshot.png) center/cover no-repeat;
-        }
-      </style>
-    </noscript>
   </head>
   <body>
     <figure>
