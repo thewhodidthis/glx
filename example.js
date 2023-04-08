@@ -6,15 +6,15 @@ const canvas = document.querySelector("canvas")
 const { gl, createProgram } = glx(canvas)
 const { width: w, height: h } = canvas
 
-const bytesPerElement = Float32Array.BYTES_PER_ELEMENT
+const { BYTES_PER_ELEMENT } = Float32Array
 const clearColor = [1, 1, 1, 1]
 
 const state = { uResolution: -1, uTheta: -1, theta: 0 }
 const shape = new Float32Array([
   // x, y, r, g, b
-  0.625, 0.625, 1, 1, 0,
-  -0.625, 0.625, 1, 1, 0,
-  0.625, -0.625, 1, 0, 1,
+  +0.625, +0.625, 1, 1, 0,
+  -0.625, +0.625, 1, 1, 0,
+  +0.625, -0.625, 1, 0, 1,
   -0.625, -0.625, 0, 1, 1,
 ])
 
@@ -50,14 +50,14 @@ gl.bufferData(gl.ARRAY_BUFFER, shape, gl.STATIC_DRAW)
 const aPosition = gl.getAttribLocation(program, "aPosition")
 
 if (aPosition !== -1) {
-  gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, gl.FALSE, 5 * bytesPerElement, 0)
+  gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, gl.FALSE, 5 * BYTES_PER_ELEMENT, 0)
   gl.enableVertexAttribArray(aPosition)
 }
 
 const aColor = gl.getAttribLocation(program, "aColor")
 
 if (aColor !== -1) {
-  gl.vertexAttribPointer(aColor, 3, gl.FLOAT, gl.FALSE, 5 * bytesPerElement, 2 * bytesPerElement)
+  gl.vertexAttribPointer(aColor, 3, gl.FLOAT, gl.FALSE, 5 * BYTES_PER_ELEMENT, 2 * BYTES_PER_ELEMENT)
   gl.enableVertexAttribArray(aColor)
 }
 
