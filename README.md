@@ -30,7 +30,7 @@ Source from an import map:
 
 ## usage
 
-All named exports follow the same pattern taking in a `WebGLRenderingContext` instance and returning a closure that does the actual work. A default export is available as a convenience for referencing and configuring a base context and for initializing the rest of the helpers with it. To render a multicolor square for example:
+All named exports follow the same pattern accepting a `WebGLRenderingContext` instance and returning a closure that does the actual work. A default export is available as a convenience for referencing and configuring a base context and for initializing the rest of the helpers with it. To render a multicolor square for example:
 
 ```html
 <script type="module">
