@@ -1,8 +1,15 @@
 ## about
 
-Helps render GLSL content.
+Simplifies working with WebGL by providing a bare minimum of helper functions that are commonly needed for program, shader, buffer, and texture creation, loading, and configuration.
 
 ## setup
+
+Download from GitHub directly if using a package manager:
+
+```sh
+# Add to package.json
+npm install thewhodidthis/glx
+```
 
 Load via script tag:
 
@@ -16,16 +23,68 @@ Source from an import map:
 ```json
 {
   "imports": {
-    "glx": "https://thewhodidthis.github.io/glx/main.js",
+    "glx": "https://thewhodidthis.github.io/glx/main.js"
   }
 }
 ```
 
-Download from GitHub directly if using a package manager:
+## usage
 
-```sh
-# Add to package.json
-npm install thewhodidthis/glx
+All named exports follow the same pattern taking in a `WebGLRenderingContext` instance and returning a closure that does the actual work. A default export is available as a convenience for referencing and configuring a base context and for initializing the rest of the helpers with it. To render a multicolor square for example:
+
+```html
+<script type="module">
+  import glx from "https://thewhodidthis.github.io/glx/main.js"
+  const canvas = document.querySelector("canvas")
+
+  const { gl, createProgram } = glx(canvas)
+
+  const vShader = `#version 300 es
+in vec2 aPosition;
+in vec3 aColor;
+out vec3 fColor;
+
+void main() {
+  fColor = aColor;
+  gl_Position = vec4(aPosition, 0, 1);
+}`
+
+  const fShader = `#version 300 es
+precision highp float;
+
+in vec3 fColor;
+out vec4 oColor;
+
+void main() {
+  oColor = vec4(fColor, 1.0);
+}`
+
+  const program = await createProgram(vShader, fShader)
+  const shape = new Float32Array([
+    // x, y, r, g, b
+    1, 1, 1, 0, 0, -1, 1, 0, 0, 1, 1, -1, 1, 1, 0, -1, -1, 0, 1, 1,
+  ])
+
+  const { BYTES_PER_ELEMENT } = Float32Array
+  const sBuffer = gl.createBuffer()
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, sBuffer)
+  gl.bufferData(gl.ARRAY_BUFFER, shape, gl.STATIC_DRAW)
+
+  const aPosition = gl.getAttribLocation(program, "aPosition")
+
+  gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, gl.FALSE, 5 * BYTES_PER_ELEMENT, 0)
+  gl.enableVertexAttribArray(aPosition)
+
+  const aColor = gl.getAttribLocation(program, "aColor")
+
+  gl.vertexAttribPointer(aColor, 3, gl.FLOAT, gl.FALSE, 5 * BYTES_PER_ELEMENT, 2 * BYTES_PER_ELEMENT)
+  gl.enableVertexAttribArray(aColor)
+
+  gl.useProgram(program)
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, shape.length / 5)
+</script>
+<canvas height="300" width="300"></canvas>
 ```
 
 ## see also
