@@ -30,7 +30,20 @@ Source from an import map:
 
 ## usage
 
-All named exports follow the same pattern accepting a `WebGLRenderingContext` instance and returning a closure that does the actual work. A default export is available as a convenience for referencing and configuring a base context and for initializing the rest of the helpers with it. To render a multicolor square for example:
+All named exports follow the same pattern accepting a `WebGLRenderingContext` instance and returning a closure that does the actual work. A default export is available as a convenience for referencing and configuring a base context and for initializing the rest of the helpers with it.
+
+| Export | Description |
+| :---   | :---        |
+| `default` | Serves as a wrapper for all other functions. Takes a `<canvas>` reference and optionally a context type and attributes. |
+| `programcreator` | Takes a WebGL context and returns a function that can create, link, and validate a program from a set of vertex and fragment shaders implicitly calling `shadercompiler`. |
+| `shadercompiler` | Takes a WebGL context and returns a function that can create and compile a shader of a given type, either `gl.FRAGMENT_SHADER` or `gl.VERTEX_SHADER`. |
+| `createFramebuffer` | Takes a WebGL context and returns a function that can create and bind a frame buffer object of a specified width and height. |
+| `createIbo` | Takes a WebGL context and returns a reusable function that creates and binds a new `gl.ELEMENT_ARRAY_BUFFER` given an array of data and an  `gl.STATIC_DRAW` by default usage argument. |
+| `createVbo` | Takes a WebGL context and returns a reusable function that creates and binds a new `gl.ARRAY_BUFFER` given an array of data and an  `gl.STATIC_DRAW` by default usage argument. |
+| `uniformlocator` | Takes a WebGL context and returns a function that accepts a `WebGLProgram` instance and an array of uniform variable names and returns an object that maps those names to their locations in the program. |
+| `texturecreator` | Takes a WebGL context and returns a function that initializes or updates a texture from a potentially `crossorigin` image URL. |
+
+To render a multicolor square for example:
 
 ```html
 <script type="module">
