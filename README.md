@@ -78,7 +78,7 @@ void main() {
     1, 1, 1, 0, 0, -1, 1, 0, 0, 1, 1, -1, 1, 1, 0, -1, -1, 0, 1, 1,
   ])
 
-  const { BYTES_PER_ELEMENT } = Float32Array
+  const { BYTES_PER_ELEMENT: BPE } = Float32Array
   const sBuffer = gl.createBuffer()
 
   gl.bindBuffer(gl.ARRAY_BUFFER, sBuffer)
@@ -86,12 +86,12 @@ void main() {
 
   const aPosition = gl.getAttribLocation(program, "aPosition")
 
-  gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, gl.FALSE, 5 * BYTES_PER_ELEMENT, 0)
+  gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, gl.FALSE, 5 * BPE, 0)
   gl.enableVertexAttribArray(aPosition)
 
   const aColor = gl.getAttribLocation(program, "aColor")
 
-  gl.vertexAttribPointer(aColor, 3, gl.FLOAT, gl.FALSE, 5 * BYTES_PER_ELEMENT, 2 * BYTES_PER_ELEMENT)
+  gl.vertexAttribPointer(aColor, 3, gl.FLOAT, gl.FALSE, 5 * BPE, 2 * BPE)
   gl.enableVertexAttribArray(aColor)
 
   gl.useProgram(program)
