@@ -1,4 +1,4 @@
-// Wraps helpers for compiling GLSL content.
+// Initializes WebGL helpers with a specific rendering context.
 export default function glx(...options) {
   const gl = getContext(...options)
 
@@ -13,6 +13,7 @@ export default function glx(...options) {
   }
 }
 
+// Helps create and compile shaders.
 export function shadercompiler(gl) {
   return function createShader(type) {
     const shader = gl.createShader(type)
@@ -32,6 +33,7 @@ export function shadercompiler(gl) {
   }
 }
 
+// Helps create, link, and validate a WebGL program given a set of vertex and fragment shaders.
 export function programcreator(gl) {
   const shaderloader = shadercompiler(gl)
   const floader = shaderloader(gl.FRAGMENT_SHADER)
@@ -133,6 +135,7 @@ export function createIbo(gl) {
   }
 }
 
+// Helps set up frame buffer objects.
 export function createFramebuffer(gl) {
   return (w, h = w) => {
     const framebuffer = gl.createFramebuffer()
@@ -144,6 +147,7 @@ export function createFramebuffer(gl) {
   }
 }
 
+// Helps gather up uniform locations.
 export function uniformlocator(gl) {
   return (program, keys) => {
     const locations = {}
@@ -156,7 +160,8 @@ export function uniformlocator(gl) {
   }
 }
 
-export function getContext(canvas, options) {
+// Helps create and configure a WebGL rendering context.
+function getContext(canvas, options) {
   const { types, attributes } = {
     // These are for WebGL v1 / OpenGL ES 2.0 and 'webgl2' would be for WebGL v2 / OpenGL ES 3.0.
     types: ["webgl2", "webgl", "experimental-webgl"],
@@ -166,10 +171,10 @@ export function getContext(canvas, options) {
     ...options,
   }
 
-  // Look up first available type.
+  // Look up the first available type.
   for (const type of types) {
     try {
-      // Would be `null` if no match found.
+      // Would be `null` if no match is found.
       const context = canvas?.getContext(type, attributes)
 
       if (context) {
