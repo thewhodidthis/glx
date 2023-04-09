@@ -103,3 +103,4 @@ void main() {
 ## see also
 
 - [@thewhodidthis/picture](https://github.com/thewhodidthis/picture/)
+- [s-express](https://github.com/thewhodidthis/shaderexpress/)
