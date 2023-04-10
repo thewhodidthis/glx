@@ -4,18 +4,18 @@ Simplifies working with WebGL by providing a bare minimum of helper functions th
 
 ## setup
 
-Download from GitHub directly if using a package manager:
-
-```sh
-# Add to package.json
-npm install thewhodidthis/glx
-```
-
 Load via script tag:
 
 ```html
 <!-- Just an IIFE namespaced `glx` -->
 <script src="https://thewhodidthis.github.io/glx/glx.js"></script>
+```
+
+Download from GitHub directly if using a package manager:
+
+```sh
+# Add to package.json
+npm install thewhodidthis/glx
 ```
 
 Source from an import map:
