@@ -7,7 +7,7 @@ const { gl, createProgram } = glx(canvas)
 const { width: w, height: h } = canvas
 
 const { BYTES_PER_ELEMENT } = Float32Array
-const clearColor = [1, 1, 1, 1]
+const clearColor = [1, 1, 1, 0]
 
 const state = { uResolution: -1, uTheta: -1, theta: 0 }
 const shape = new Float32Array([

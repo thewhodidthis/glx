@@ -26,7 +26,7 @@
         text-align: center;
       }
       canvas {
-        background: white center/cover no-repeat;
+        background: transparent center/cover no-repeat;
         display: block;
       }
       img {
@@ -45,12 +45,21 @@
         font-size: small;
         margin: auto;
       }
+      @media (prefers-color-scheme: dark) {
+        html {
+          background: #1e1e1e;
+          color: #efefef;
+        }
+        a {
+          color: inherit;
+        }
+      }
     </style>
   </head>
   <body>
     <figure>
       <canvas id="canvas" height="360" width="360">
-        <img src="screenshot.png" alt="Rainbow colored rectangle on a white background" height="360" width="360">
+        <img src="screenshot.png" alt="Spinning rainbow colored rectangle" height="360" width="360">
       </canvas>
       <figcaption>
         <p><strong><a href="https://github.com/thewhodidthis/glx">glx.js</a></strong> Helps render GLSL content</p>
