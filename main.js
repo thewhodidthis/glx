@@ -85,23 +85,24 @@ export function texturecreator(gl) {
       if (src) {
         const image = new Image()
 
-        image.onerror = (e) => {
-          reject(e)
-        }
-
-        image.onload = () => {
-          const { width: w, height: h } = image
-
-          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, image)
-
-          resolve(texture)
-        }
-
         image.src = src
 
         if (crossorigin !== undefined) {
           image.crossOrigin = crossorigin
         }
+
+        image
+          .decode()
+          .then(() => {
+            const { width: w, height: h } = image
+
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, image)
+
+            resolve(texture)
+          })
+          .catch((e) => {
+            reject(e)
+          })
       } else {
         resolve(texture)
       }
