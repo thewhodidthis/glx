@@ -84,32 +84,27 @@ var glx = (function(exports) {
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
 
-      return new Promise((resolve, reject) => {
-        if (src) {
-          const image = new Image()
+      if (src) {
+        const image = new Image()
 
-          image.src = src
+        image.src = src
 
-          if (crossorigin !== undefined) {
-            image.crossOrigin = crossorigin
-          }
-
-          image
-            .decode()
-            .then(() => {
-              const { width: w, height: h } = image
-
-              gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, image)
-
-              resolve(texture)
-            })
-            .catch((e) => {
-              reject(e)
-            })
-        } else {
-          resolve(texture)
+        if (crossorigin !== undefined) {
+          image.crossOrigin = crossorigin
         }
-      })
+
+        return image
+          .decode()
+          .then(() => {
+            const { width: w, height: h } = image
+
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, image)
+
+            return texture
+          })
+      }
+
+      return Promise.resolve(texture)
     }
   }
 
